@@ -5,3 +5,4 @@ compiler:
 
 sudo: required
 script: g++ -std=c++0x -c Movilidad.cpp -o Movilidad.o && ./Movilidad
+after_script: ls
