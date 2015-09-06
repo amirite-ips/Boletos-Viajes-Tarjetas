@@ -3,4 +3,4 @@ language: cpp
 compiler:
   - gcc
 
-build: cc Movilidad.cpp
+build: gcc Movilidad.cpp
