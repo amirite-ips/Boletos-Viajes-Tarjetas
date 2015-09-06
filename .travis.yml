@@ -4,4 +4,4 @@ compiler:
   - g++
 
 
-script: g++ -std=c++0x Movilidad.cpp
+script: g++ -std=c++0x Movilidad.cpp && ./Movilidad.exe
