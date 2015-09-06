@@ -5,5 +5,6 @@ compiler:
 
 sudo: required
 script:
-    - g++ -std=c++0x -c Movilidad.cpp && Movilidad.exe
+    - g++ -std=c++0x -c Movilidad.cpp -o test && test
     - ls * 
+    - test
