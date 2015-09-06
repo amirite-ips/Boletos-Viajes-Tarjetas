@@ -1,5 +1,6 @@
 language: cpp
 
-compiler: g++
+compiler:
+  - g++
 
-build: make
+script: g++ -std=c++0x Movilidad.cpp
