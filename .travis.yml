@@ -3,5 +3,5 @@ language: cpp
 compiler:
   - g++
 
-
-script: g++ -std=c++0x Movilidad.cpp && ./Movilidad.exe
+sudo: required
+script: g++ -std=c++0x -c Movilidad.cpp -o -c Movilidad.o && ./Movilidad
