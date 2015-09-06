@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #define forn(i, n) for(int i=0; i<(int)(n); ++i)
+#define mod(a, b) (((a)%(b)+(b))%(b))
+#define debug(x) cout<<#x<<" = "<<(x)<<endl;
 using namespace std;
 
 typedef float tdinero;
@@ -23,7 +25,7 @@ struct Fecha{
         auto aTiempoAbsoluto = [](ttiempo h, ttiempo m){ return 60 * h + m; };
         ttiempo a = aTiempoAbsoluto(hora, minutos);
         ttiempo b = aTiempoAbsoluto(origen.hora, origen.minutos);
-        return a - b;
+        return mod(a - b, 1440);
     }
 };
 
@@ -44,9 +46,9 @@ class TarjetaBase{
         tlviajes        viajesRealizados();
 
     protected:
-        bool            pagarBoleto(Colectivo, Fecha, tdinero, tdinero);
-        const tdinero   BOLETO_COMUN        = 5.75;
-        const tdinero   BOLETO_TRANSBORDO   = 1.90;
+        bool            pagarBoleto(Colectivo, Fecha, const tdinero, const tdinero);
+        static constexpr tdinero   BOLETO_COMUN        = 5.75;
+        static constexpr tdinero   BOLETO_TRANSBORDO   = 1.90;
 
     private:
         tdinero         credito;
@@ -56,12 +58,6 @@ class TarjetaBase{
 class TarjetaComun : public TarjetaBase {
     public:
         bool pagarBoleto(Colectivo, Fecha);
-
-    private:
-
-
-
-
 };
 
 class TarjetaMedioBoleto : public TarjetaBase{
@@ -69,11 +65,8 @@ class TarjetaMedioBoleto : public TarjetaBase{
         bool pagarBoleto(Colectivo, Fecha);
 
     private:
-        const tdinero   BOLETO_COMUN        = 2.90;
-        const tdinero   BOLETO_TRANSBORDO   = 0.96;
-
-
-
+        static constexpr tdinero   BOLETO_COMUN        = 2.90;
+        static constexpr tdinero   BOLETO_TRANSBORDO   = 0.96;
 };
 
 /// MAIN
@@ -81,13 +74,6 @@ class TarjetaMedioBoleto : public TarjetaBase{
 int main(){
 
     cout<<"Movilidad"<<endl;
-
-    TarjetaComun x;
-
-    x.recarga(368);
-
-    cout<< x.saldo() <<endl;
-
 
     return 0;
 }
@@ -118,20 +104,36 @@ tlviajes TarjetaBase::viajesRealizados(){
 }
 
 bool TarjetaBase::pagarBoleto(Colectivo colectivo, Fecha fecha,
-                              const tdinero PCOMUN, const tdinero PTRANS){
+                              const tdinero P_COMUN, const tdinero P_TRANS){
+    tdinero descuento = P_COMUN;
+    int n_viajes = log_viajes.size();
+
+    if( ( n_viajes >= 1 )
+    &&  ( colectivo.linea != log_viajes[n_viajes-1].colectivo.linea )
+    &&  ( (fecha - log_viajes[n_viajes-1].fecha) < 60 )
+    &&  ( n_viajes < 2 || (fecha - log_viajes[n_viajes-2].fecha >= 60) ) )
+            descuento = P_TRANS;
+
+    if( credito < descuento ) return false;
+
+    credito -= descuento;
+    log_viajes.push_back({colectivo, fecha, descuento});
     return true;
 }
 
 // TarjetaComun
 
 bool TarjetaComun::pagarBoleto(Colectivo colectivo, Fecha fecha){
-    return true;
+    return TarjetaBase::pagarBoleto(colectivo, fecha, TarjetaBase::BOLETO_COMUN,
+                                    TarjetaBase::BOLETO_TRANSBORDO);
 }
-
 
 // TarjetaMedioBoleto
 
 bool TarjetaMedioBoleto::pagarBoleto(Colectivo colectivo, Fecha fecha){
-    return true;
+    if( fecha.hora < 6 )
+         return TarjetaBase::pagarBoleto(colectivo, fecha, TarjetaBase::BOLETO_COMUN,
+                                         TarjetaBase::BOLETO_TRANSBORDO);
+    else return TarjetaBase::pagarBoleto(colectivo, fecha, BOLETO_COMUN, BOLETO_TRANSBORDO);
 }
 
