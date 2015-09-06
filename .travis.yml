@@ -3,5 +3,5 @@ language: cpp
 compiler:
   - g++
 
-before_script: ls
-script: make -C Movilidad.cpp
+
+script: g++ -std=c++0x Movilidad.cpp
