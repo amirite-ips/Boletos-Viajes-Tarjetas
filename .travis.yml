@@ -3,4 +3,4 @@ language: cpp
 compiler:
   - gcc
 
-script: ./configure && make && make test
+build: cc Movilidad.cpp
