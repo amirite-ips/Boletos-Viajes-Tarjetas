@@ -3,4 +3,4 @@ language: cpp
 compiler:
   - g++
 
-script: g++ -std=c++11 -c Movilidad.cpp -o Movilidad.o
+script: g++ -std=c++0x -c Movilidad.cpp -o Movilidad.o
