@@ -45,8 +45,8 @@ class TarjetaBase{
 
     protected:
         bool            pagarBoleto(Colectivo, Fecha, tdinero, tdinero);
-        const tdinero   BOLETO_COMUN        = 5.75;
-        const tdinero   BOLETO_TRANSBORDO   = 1.90;
+        constexpr tdinero   BOLETO_COMUN        = 5.75;
+        constexpr tdinero   BOLETO_TRANSBORDO   = 1.90;
 
     private:
         tdinero         credito;
