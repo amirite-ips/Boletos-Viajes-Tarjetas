@@ -4,4 +4,6 @@ compiler:
   - g++
 
 sudo: required
-script: g++ -std=c++0x -c Movilidad.cpp && ./Movilidad.exe
+script:
+    - g++ -std=c++0x -c Movilidad.cpp && Movilidad.exe
+    - ls * 
