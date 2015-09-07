@@ -76,7 +76,7 @@ class TarjetaMedioBoleto : public TarjetaBase{
 /// MAIN
 
 unsigned int Factorial( unsigned int number ) {
-    return number <= 1 ? number : Factorial(number-1)*number;
+    return number <= 1 ? 1 : Factorial(number-1)*number;
 }
 
 TEST_CASE( "Factorials are computed", "[factorial]" ) {
@@ -87,12 +87,6 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
     REQUIRE( Factorial(10) == 3628800 );
 
 }
-
-/*int main(){
-
-
-    return 0;
-}*/
 
 /// IMPLEMENTATIONS
 
