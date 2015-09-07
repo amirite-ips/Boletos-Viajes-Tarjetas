@@ -8,4 +8,4 @@ script:
     - g++ -std=c++0x -c Movilidad.cpp -o test
     - ls * 
     - chmod +x test
-    - ./test
+    - sudo test
