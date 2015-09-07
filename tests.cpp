@@ -6,13 +6,13 @@ TEST_CASE("Las tarjetas pueden ser recargadas", "[recarga]"){
     TarjetaComun t;
     REQUIRE( t.saldo() == tdinero(0) );
     
-    t.recargar(100);
+    t.recarga(100);
     REQUIRE( t.saldo() == tdinero(100) );
     
-    t.recargar(200);
+    t.recarga(200);
     REQUIRE( t.saldo() == tdinero(334) );
 
-    t.recargar(400);
+    t.recarga(400);
     REQUIRE( t.saldo() == tdinero(826) );
 }
 
