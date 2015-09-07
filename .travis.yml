@@ -4,8 +4,4 @@ compiler:
   - g++
 
 sudo: required
-script:
-    - g++ -std=c++0x -c Movilidad.cpp -o test
-    - ls * 
-    - chmod +x test
-    - sudo test
+script: g++ -std=c++0x -c Movilidad.cpp -o test && ./test
