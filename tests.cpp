@@ -2,11 +2,17 @@
 #include "catch.hpp"
 #include "Movilidad.cpp"
 
-TEST_CASE("holi", "[factorial]"){
-  REQUIRE( 5 == 5);
-  REQUIRE( 1 == 1);
-  REQUIRE( 4 == 2);
-  
-  
+TEST_CASE("Las tarjetas pueden ser recargadas", "[recarga]"){
+    TarjetaComun t;
+    REQUIRE( t.saldo() == tdinero(0) );
+    
+    t.recargar(100);
+    REQUIRE( t.saldo() == tdinero(100) );
+    
+    t.recargar(200);
+    REQUIRE( t.saldo() == tdinero(334) );
+
+    t.recargar(400);
+    REQUIRE( t.saldo() == tdinero(826) );
 }
 
