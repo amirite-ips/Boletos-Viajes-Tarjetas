@@ -3,9 +3,9 @@
 #include "Movilidad.cpp"
 
 TEST_CASE("holi", "[factorial]"){
-  REQUIRE( 5 == 4);
-  REQUIRE( 0 == 0);
-  REQUIRE( 0 == NULL);
+  REQUIRE( 5 == 5);
+  REQUIRE( 1 == 1);
+  REQUIRE( 4 == 2);
   
   
 }
