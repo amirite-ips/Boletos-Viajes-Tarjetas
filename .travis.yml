@@ -1,7 +1,6 @@
 language: cpp
 
 compiler:
-  - g++
+  - gcc
 
-sudo: required
-script: g++ -std=c++0x -c Movilidad.cpp -o test && ./test
+script: g++ -std=c++0x Movilidad.cpp -o test && ./test
