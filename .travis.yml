@@ -7,4 +7,4 @@ sudo: required
 script:
     - g++ -std=c++0x -c Movilidad.cpp -o test
     - ls * 
-    - test
+    - ./test
