@@ -1,9 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
-#include "catch.hpp"
-
 #define forn(i, n) for(int i=0; i<(int)(n); ++i)
 #define mod(a, b) (((a)%(b)+(b))%(b))
 #define debug(x) cout<<#x<<" = "<<(x)<<endl;
@@ -72,21 +69,6 @@ class TarjetaMedioBoleto : public TarjetaBase{
         static constexpr tdinero   BOLETO_COMUN        = 2.90;
         static constexpr tdinero   BOLETO_TRANSBORDO   = 0.96;
 };
-
-/// MAIN
-
-unsigned int Factorial( unsigned int number ) {
-    return number <= 1 ? 1 : Factorial(number-1)*number;
-}
-
-TEST_CASE( "Factorials are computed", "[factorial]" ) {
-    //REQUIRE( Factorial(0) == 1 );
-   // REQUIRE( Factorial(1) == 1 );
-   // REQUIRE( Factorial(2) == 2 );
-   // REQUIRE( Factorial(3) == 6 );
-   // REQUIRE( Factorial(10) == 3628800 );
-    REQUIRE( 5 == 5 );
-}
 
 /// IMPLEMENTATIONS
 
