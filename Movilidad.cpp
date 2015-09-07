@@ -1,5 +1,6 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
+#include "include/catch.hpp"
 #define forn(i, n) for(int i=0; i<(int)(n); ++i)
 #define mod(a, b) (((a)%(b)+(b))%(b))
 #define debug(x) cout<<#x<<" = "<<(x)<<endl;
@@ -72,8 +73,12 @@ class TarjetaMedioBoleto : public TarjetaBase{
 /// MAIN
 
 int main(){
-
-    cout<<"Movilidad"<<endl;
+    int a = 2;
+    int b = 3;
+    int c = 2;
+    REQUIRE(a == b);
+    REQUIRE(b == c);
+    REQUIRE(a == c);
 
     return 0;
 }
