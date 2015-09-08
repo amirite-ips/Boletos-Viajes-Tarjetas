@@ -46,7 +46,7 @@ TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
     TarjetaComun        t1;
     TarjetaMedioBoleto  t2;
     Colectivo           trole   = {"Semtur", "K", 23};
-    Colectivo           cole1   = {"Semtur", "137", 28};
+    Colectivo           cole   = {"Semtur", "137", 28};
     Fecha               f1      = "7-9-2015 12:00";
     Fecha               f2      = "7-9-2015 12:18";
     Fecha               f3      = "7-9-2015 12:49";
@@ -66,8 +66,8 @@ TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
     REQUIRE( t2.saldo() == tdinero(100 - 2.90 - 2.90) );
     
     /* Marcas en otro */
-    t1.pagarBoleto(cole1, f3);
-    t2.pagarBoleto(cole1, f3);
+    t1.pagarBoleto(cole, f3);
+    t2.pagarBoleto(cole, f3);
     
     /* Usa transbordo */
     REQUIRE( t1.saldo() == tdinero(100 - 5.75 - 5.75 - 1.9) );
