@@ -107,3 +107,26 @@ TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
     REQUIRE( t1.saldo() == tdinero(100 - 5.75 - 1.90 - 5.75 - 5.75) );
     REQUIRE( t2.saldo() == tdinero(100 - 2.90 - 0.96 - 2.90 - 2.90) );
 }
+
+TEST_CASE("Lista de viajes", "[listaviajes]"){
+    TarjetaComun        t1;
+    Colectivo           trole   = {"Semtur", "K", 23};
+    Colectivo           cole    = {"Semtur", "137", 28};
+    Colectivo           otrocole    = {"RosBus", "128", 17};
+    Fecha               f1      = "7-9-2015 12:00";
+    Fecha               f2      = "7-9-2015 13:20";
+    Fecha               f3      = "8-10-2015 17:34";
+    
+    t1.recarga(100);
+    
+    t1.pagarBoleto(trole, f1);
+    t1.pagarBoleto(cole, f2);
+    t1.pagarBoleto(otrocole, f3);
+    
+    tlviajes lista = t1.viajesRealizados();
+    
+    REQUIRE( lista[0] == {"Semtur", "K", 23} );
+    REQUIRE( lista[1] == {"Semtur", "137", 28} );
+    REQUIRE( lista[2] == {"RosBus", "128", 17} );
+    
+}
