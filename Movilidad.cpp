@@ -18,13 +18,16 @@ struct Colectivo{
     string      empresa;
     string      linea;
     tinterno    numero_interno;
+    bool operator==(Colectivo) const;
 };
 
 class Fecha{
     public:
         Fecha(const char *);
         int hora() const;
+        time_t getTime() const;
         ttiempo operator-(Fecha) const;
+        bool operator==(Fecha) const;
     private:
         tm in;
         time_t datetime;
@@ -34,6 +37,7 @@ struct Viaje{
     Colectivo   colectivo;
     Fecha       fecha;
     tdinero     monto;
+    bool operator==(Viaje) const;
 };
 
 typedef vector<Viaje> tlviajes;
@@ -72,6 +76,12 @@ class TarjetaMedioBoleto : public TarjetaBase{
 
 /// IMPLEMENTATIONS
 
+//Colectivo
+
+bool Colectivo::operator==(Colectivo col) const {
+    return empresa == col.empresa && linea == col.linea && numero_interno == col.numero_interno;
+}
+
 //Fecha
 
 Fecha::Fecha(const char *date) : in{} {
@@ -85,9 +95,24 @@ inline int Fecha::hora() const {
     return in.tm_hour;
 }
 
+time_t Fecha::getTime() const {
+    return datetime;
+}
+
 ttiempo Fecha::operator-(Fecha origen) const {
     return (datetime - origen.datetime) / 60;
 }
+
+bool Fecha::operator==(Fecha origen) const {
+    return datetime == origen.getTime();
+}
+
+// Viaje
+
+bool Viaje::operator==(Viaje viaje) const {
+    return colectivo == viaje.colectivo && fecha == viaje.fecha && monto == viaje.monto;
+}
+
 // TarjetaBase
 
 TarjetaBase::TarjetaBase() : credito(0) {}
