@@ -1,5 +1,7 @@
 #include <iostream>
+#include <cstdio>
 #include <vector>
+#include <ctime>
 
 #define forn(i, n) for(int i=0; i<(int)(n); ++i)
 #define mod(a, b) (((a)%(b)+(b))%(b))
@@ -18,16 +20,14 @@ struct Colectivo{
     tinterno    numero_interno;
 };
 
-struct Fecha{
-    string  fecha;
-    ttiempo hora;
-    ttiempo minutos;
-    ttiempo operator-(Fecha origen) const {
-        auto aTiempoAbsoluto = [](ttiempo h, ttiempo m){ return 60 * h + m; };
-        ttiempo a = aTiempoAbsoluto(hora, minutos);
-        ttiempo b = aTiempoAbsoluto(origen.hora, origen.minutos);
-        return mod(a - b, 1440);
-    }
+class Fecha{
+    public:
+        Fecha(const char *);
+        int hora() const;
+        ttiempo operator-(Fecha) const;
+    private:
+        tm in;
+        time_t datetime;
 };
 
 struct Viaje{
@@ -72,6 +72,22 @@ class TarjetaMedioBoleto : public TarjetaBase{
 
 /// IMPLEMENTATIONS
 
+//Fecha
+
+Fecha::Fecha(const char *date) : in{} {
+    sscanf(date,"%i-%i-%i %i:%i",&in.tm_mday, &in.tm_mon, &in.tm_year, &in.tm_hour, &in.tm_min);
+    in.tm_year -= 1900;
+    in.tm_mon -= 1;
+    datetime = mktime( &in );
+}
+
+inline int Fecha::hora() const {
+    return in.tm_hour;
+}
+
+ttiempo Fecha::operator-(Fecha origen) const {
+    return (datetime - origen.datetime) / 60;
+}
 // TarjetaBase
 
 TarjetaBase::TarjetaBase() : credito(0) {}
@@ -95,8 +111,7 @@ tlviajes TarjetaBase::viajesRealizados(){
     return log_viajes;
 }
 
-bool TarjetaBase::pagarBoleto(Colectivo colectivo, Fecha fecha,
-                              const tdinero P_COMUN, const tdinero P_TRANS){
+bool TarjetaBase::pagarBoleto(Colectivo colectivo, Fecha fecha, const tdinero P_COMUN, const tdinero P_TRANS){
     tdinero descuento = P_COMUN;
     int n_viajes = log_viajes.size();
 
@@ -123,7 +138,7 @@ bool TarjetaComun::pagarBoleto(Colectivo colectivo, Fecha fecha){
 // TarjetaMedioBoleto
 
 bool TarjetaMedioBoleto::pagarBoleto(Colectivo colectivo, Fecha fecha){
-    if( fecha.hora < 6 )
+    if( fecha.hora() < 6 )
          return TarjetaBase::pagarBoleto(colectivo, fecha, TarjetaBase::BOLETO_COMUN,
                                          TarjetaBase::BOLETO_TRANSBORDO);
     else return TarjetaBase::pagarBoleto(colectivo, fecha, BOLETO_COMUN, BOLETO_TRANSBORDO);
