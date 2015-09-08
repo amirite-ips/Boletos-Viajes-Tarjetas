@@ -125,8 +125,13 @@ TEST_CASE("Lista de viajes", "[listaviajes]"){
     
     tlviajes lista = t1.viajesRealizados();
     
-    REQUIRE( lista[0] == {"Semtur", "K", 23} );
-    REQUIRE( lista[1] == {"Semtur", "137", 28} );
-    REQUIRE( lista[2] == {"RosBus", "128", 17} );
-    
+    REQUIRE( lista[0].colectivo == "K" && 
+             lista[0].fecha == "7-9-2015 12:00" &&
+             lista[0].monto == 5.75);
+    REQUIRE( lista[1].colectivo == "137" && 
+             lista[1].fecha == "7-9-2015 13:20" &&
+             lista[1].monto == 5.75);
+    REQUIRE( lista[2].colectivo == "128" && 
+             lista[2].fecha == "8-10-2015 17:34" &&
+             lista[2].monto == 5.75);
 }
