@@ -62,10 +62,10 @@ TEST_CASE("Uso del medio boleto en horario correcto", "[medioboleto]"){
     t2.recarga(100);
 
     t2.pagarBoleto(trole, f1);
-    REQUIRE( t2.saldo() == 100 - 5.75 ); // Se paga entero
+    REQUIRE( t2.saldo() == tdinero(100 - 5.75) ); // Se paga entero
     
     t2.pagarBoleto(trole, f2);
-    REQUIRE( t2.saldo() == 100 - 5.75 - 2.90 ); // Se paga medio entre 6hs y 24hs
+    REQUIRE( t2.saldo() == tdinero(100 - 5.75 - 2.90) ); // Se paga medio entre 6hs y 24hs
 }
 
 TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
