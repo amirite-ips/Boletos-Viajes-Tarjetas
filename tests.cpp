@@ -126,13 +126,13 @@ TEST_CASE("Lista de viajes", "[listaviajes]"){
     
     tlviajes lista = t1.viajesRealizados();
     
-    REQUIRE( !strcmp(lista[0].colectivo, "K") && 
-             !strcmp(lista[0].fecha, "7-9-2015 12:00") &&
+    REQUIRE( !strcmp(lista[0].colectivo.linea, "K") && 
+             (lista[0].fecha.hora == 12) &&
              lista[0].monto == 5.75);
-    REQUIRE( !strcmp(lista[1].colectivo, "137") && 
-             !strcmp(lista[1].fecha, "7-9-2015 13:20") &&
+    REQUIRE( !strcmp(lista[1].colectivo.linea, "137") && 
+             (lista[1].fecha.hora() == 13) &&
              lista[1].monto == 5.75);
-    REQUIRE( !strcmp(lista[2].colectivo, "128") && 
-             !strcmp(lista[2].fecha, "8-10-2015 17:34") &&
+    REQUIRE( !strcmp(lista[2].colectivo.linea, "128") && 
+             (lista[2].fecha.hora() == 17) &&
              lista[2].monto == 5.75);
 }
