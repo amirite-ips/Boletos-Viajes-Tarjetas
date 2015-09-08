@@ -30,6 +30,7 @@ TEST_CASE("Costo de los boletos", "[discounting]"){
     TarjetaComun        t1;
     TarjetaMedioBoleto  t2;
     Colectivo           trole   = {"Semtur", "K", 23};
+    Colectivo           cole1   = {"Semtur", "137", 28};
     Fecha               f1      = "7-9-2015 21:17";
 
     t1.recarga(100);
@@ -40,4 +41,43 @@ TEST_CASE("Costo de los boletos", "[discounting]"){
 
     REQUIRE( t1.saldo() == tdinero(100 - 5.75) );
     REQUIRE( t2.saldo() == tdinero(100 - 2.90) );
+}
+
+TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
+    TarjetaComun        t1;
+    TarjetaMedioBoleto  t2;
+    Colectivo           trole   = {"Semtur", "K", 23};
+    Fecha               f1      = "7-9-2015 12:00";
+    Fecha               f2      = "7-9-2015 12:18";
+    Fecha               f3      = "7-9-2015 12:49";
+    Fecha               f4      = "7-9-2015 12:59";
+
+    t1.recarga(100);
+    t2.recarga(100);
+
+    t1.pagarBoleto(trole, f1);
+    t2.pagarBoleto(trole, f1);
+    /* Se marca en el mismo colectivo, dos veces */
+    t1.pagarBoleto(trole, f2);
+    t2.pagarBoleto(trole, f2);
+
+    /* No deberia usar transbordo por ser el mismo */
+    REQUIRE( t1.saldo() == tdinero(100 - 5.75 - 5.75) );
+    REQUIRE( t2.saldo() == tdinero(100 - 2.90 - 2.90) );
+    
+    /* Marcas en otro */
+    t1.pagarBoleto(cole1, f3);
+    t2.pagarBoleto(cole1, f3);
+    
+    /* Usa transbordo */
+    REQUIRE( t1.saldo() == tdinero(100 - 5.75 - 5.75 - 1.9) );
+    REQUIRE( t2.saldo() == tdinero(100 - 2.90 - 2.90 - 0.96) );
+    
+    /* En horario para otro transbordo, aunque ya acaba de usar uno, 
+        por lo que no deberia hacer el precio de transbordo */
+    t1.pagarBoleto(trole, f4);
+    t2.pagarBoleto(trole, f4);
+    
+    REQUIRE( t1.saldo() == tdinero(100 - 5.75 - 5.75 - 1.9 - 5.75) );
+    REQUIRE( t2.saldo() == tdinero(100 - 2.90 - 2.90 - 0.96 - 2.90) );
 }
