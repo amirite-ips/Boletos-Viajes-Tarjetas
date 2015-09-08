@@ -30,7 +30,6 @@ TEST_CASE("Costo de los boletos", "[discounting]"){
     TarjetaComun        t1;
     TarjetaMedioBoleto  t2;
     Colectivo           trole   = {"Semtur", "K", 23};
-    Colectivo           cole1   = {"Semtur", "137", 28};
     Fecha               f1      = "7-9-2015 21:17";
 
     t1.recarga(100);
@@ -47,6 +46,7 @@ TEST_CASE("Costo del boleto en transbordo", "[transbordo]"){
     TarjetaComun        t1;
     TarjetaMedioBoleto  t2;
     Colectivo           trole   = {"Semtur", "K", 23};
+    Colectivo           cole1   = {"Semtur", "137", 28};
     Fecha               f1      = "7-9-2015 12:00";
     Fecha               f2      = "7-9-2015 12:18";
     Fecha               f3      = "7-9-2015 12:49";
