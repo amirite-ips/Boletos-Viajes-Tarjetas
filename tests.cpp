@@ -1,6 +1,7 @@
 #include "Movilidad.cpp"
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
+#include <cstring>
 
 TEST_CASE("Las tarjetas pueden ser recargadas", "[recarga]"){
     TarjetaComun t;
@@ -125,13 +126,13 @@ TEST_CASE("Lista de viajes", "[listaviajes]"){
     
     tlviajes lista = t1.viajesRealizados();
     
-    REQUIRE( lista[0].colectivo == "K" && 
-             lista[0].fecha == "7-9-2015 12:00" &&
+    REQUIRE( !strcmp(lista[0].colectivo, "K") && 
+             !strcmp(lista[0].fecha, "7-9-2015 12:00") &&
              lista[0].monto == 5.75);
-    REQUIRE( lista[1].colectivo == "137" && 
-             lista[1].fecha == "7-9-2015 13:20" &&
+    REQUIRE( !strcmp(lista[1].colectivo, "137") && 
+             !strcmp(lista[1].fecha, "7-9-2015 13:20") &&
              lista[1].monto == 5.75);
-    REQUIRE( lista[2].colectivo == "128" && 
-             lista[2].fecha == "8-10-2015 17:34" &&
+    REQUIRE( !strcmp(lista[2].colectivo, "128") && 
+             !strcmp(lista[2].fecha, "8-10-2015 17:34") &&
              lista[2].monto == 5.75);
 }
