@@ -92,15 +92,17 @@ ttiempo Fecha::operator-(Fecha origen) const {
 
 TarjetaBase::TarjetaBase() : credito(0) {}
 
-void TarjetaBase::recarga(tdinero nuevo_monto){
+bool TarjetaBase::recarga(tdinero nuevo_monto){
+    if (nuevo_monto <= 0) return false;
     const pair<tdinero, tdinero> BONIFICACION [] = {{368,92}, {196,34}, {0,0}};
 
     credito += nuevo_monto;
     for(auto &p : BONIFICACION)
         if( nuevo_monto >= p.first ){
             credito += p.second;
-            return;
+            return true;
         }
+    return true;
 }
 
 tdinero TarjetaBase::saldo(){
