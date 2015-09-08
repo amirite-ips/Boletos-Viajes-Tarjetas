@@ -42,7 +42,7 @@ class TarjetaBase{
     public:
         TarjetaBase();
         virtual bool    pagarBoleto(Colectivo, Fecha) = 0;
-        void            recarga(tdinero);
+        bool            recarga(tdinero);
         tdinero         saldo();
         tlviajes        viajesRealizados();
 
